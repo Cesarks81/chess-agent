@@ -1,17 +1,84 @@
-# React + Vite
+# ChessAgent
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Dashboard de estadísticas personales de ajedrez conectado a la API de Lichess.
 
-Currently, two official plugins are available:
+**Live:** https://chess-agent-omega.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Características
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Perfil de usuario con ELO actual en Blitz, Rapid y Bullet
+- Grafica de ELO por partida con vistas de hoy, esta semana y este mes
+- Analisis de aperturas jugadas este mes con porcentaje de victorias
+- Rendimiento por color (blancas vs negras)
+- Razones de derrota (abandono, mate, tiempo...)
+- Rendimiento contra rivales mas debiles, similares y mas fuertes
+- Racha actual y mejor racha del mes
+- Busqueda de cualquier usuario de Lichess
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# chess-agent
+## Stack
+
+- React 19 + Vite
+- Tailwind CSS v4
+- Recharts
+- Lichess API (publica + autenticacion por Personal Access Token)
+
+---
+
+## Instalacion local
+
+```bash
+git clone https://github.com/Cesarks81/chess-agent.git
+cd chess-agent
+npm install
+```
+
+Crea un archivo `.env` en la raiz del proyecto:
+
+```
+VITE_LICHESS_TOKEN=tu_personal_access_token
+```
+
+Puedes generar un token en https://lichess.org/account/oauth/token
+
+```bash
+npm run dev
+```
+
+---
+
+## Despliegue en Vercel
+
+1. Conecta el repositorio en vercel.com
+2. En **Settings > Environment Variables** añade:
+   - `VITE_LICHESS_TOKEN` con tu token de Lichess
+3. Despliega
+
+Sin el token la aplicacion funciona igualmente pero con limite de peticiones de la API publica de Lichess.
+
+---
+
+## Estructura
+
+```
+src/
+  components/
+    insights/       # ColorStats, DefeatReasons, OpeningsTable, RatingBuckets, StreakCard
+    ui/             # Button, Card, Input, Tabs, Badge
+    EloChart.jsx
+    HeaderProfile.jsx
+    RatingCard.jsx
+    SearchBar.jsx
+    StatsOverview.jsx
+  hooks/
+    useLichessAuth.js
+    useLichessGames.js
+    useLichessUser.js
+  utils/
+    insights.js     # logica de calculo de estadisticas
+  auth/
+    lichessOAuth.js
+```
