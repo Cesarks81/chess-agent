@@ -13,6 +13,7 @@ import { StreakCard }         from './components/insights/StreakCard'
 import { DefeatReasons }     from './components/insights/DefeatReasons'
 import { OpeningsTable }     from './components/insights/OpeningsTable'
 import { RatingBuckets }     from './components/insights/RatingBuckets'
+import { EloProgressBar }   from './components/EloProgressBar'
 import {
   computeColorStats,
   computeOpenings,
@@ -123,11 +124,11 @@ export default function App() {
               </div>
             )}
 
-            {/* Layout principal: izquierda 66% | derecha 33% */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
+            {/* Layout principal: izquierda | barra ELO | derecha */}
+            <div className="grid grid-cols-1 lg:grid-cols-[2fr_auto_1fr] gap-5 items-start">
 
               {/* Columna izquierda — 66% */}
-              <div className="lg:col-span-2 flex flex-col gap-4">
+              <div className="flex flex-col gap-4">
 
                 {/* Arriba izquierda: Blitz, Rapid, Bullet */}
                 {topPerfs.length > 0 && (
@@ -142,8 +143,11 @@ export default function App() {
                 <EloChart getChartData={getChartData} loading={gamesLoading} onExportPGN={exportPGN} />
               </div>
 
+              {/* Barra de progreso ELO Blitz */}
+              <EloProgressBar perf={data?.perfs?.blitz} />
+
               {/* Columna derecha — 33% */}
-              <div className="lg:col-span-1 flex flex-col gap-4">
+              <div className="flex flex-col gap-4">
 
                 {/* Arriba derecha: Rachas */}
                 {insights && <StreakCard streaks={insights.streaks} />}

@@ -110,7 +110,7 @@ export function EloChart({ getChartData, loading, onExportPGN }) {
           )}
         </div>
         <div className="flex items-center gap-2">
-          <Tabs value={view} onChange={setView} options={VIEW_OPTIONS} />
+          <Tabs value={view} onChange={setView} options={VIEW_OPTIONS} className="flex-1" />
           {onExportPGN && totalGames > 0 && (
             <button
               onClick={handleCopy}
