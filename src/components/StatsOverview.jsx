@@ -23,9 +23,8 @@ export function StatsOverview({ count }) {
         <CardTitle>Resumen de partidas</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-6">
+        <div className="grid grid-cols-3 gap-6 mb-6">
           <Stat label="Total" value={all.toLocaleString()} />
-          <Stat label="Clasificadas" value={rated.toLocaleString()} />
           <Stat label="Victorias" value={win.toLocaleString()} color="text-emerald-400" />
           <Stat label="Derrotas" value={loss.toLocaleString()} color="text-red-400" />
         </div>

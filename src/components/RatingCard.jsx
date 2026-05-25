@@ -40,7 +40,7 @@ export function RatingCard({ variant, perf }) {
   const progZero = prog === 0
 
   return (
-    <Card className="hover:border-gray-700 transition-colors">
+    <Card className="hover:border-gray-700 transition-colors h-full">
       <CardContent className="pt-4">
         <div className="flex items-center justify-between mb-2">
           <span className="text-xs text-gray-500 uppercase tracking-wider font-medium">
