@@ -111,6 +111,28 @@ export function useLichessGames(token) {
     }
   }, [token])
 
+  async function exportPGN(view) {
+    if (!username) return ''
+    const since =
+      view === 'day'   ? startOfDay()   :
+      view === 'week'  ? startOfWeek()  :
+                         startOfMonth()
+    const params = new URLSearchParams({
+      rated:   'true',
+      since:   String(since),
+      max:     '500',
+      moves:   'true',
+    })
+    const headers = { Accept: 'application/x-chess-pgn' }
+    if (token) headers['Authorization'] = `Bearer ${token}`
+    const res = await fetch(
+      `https://lichess.org/api/games/user/${username}?${params}`,
+      { headers }
+    )
+    if (!res.ok) throw new Error(`Error ${res.status}`)
+    return res.text()
+  }
+
   function getChartData(view) {
     if (view === 'day') {
       const todayPoints = allPoints.filter((p) => p.ts >= startOfDay())
@@ -158,5 +180,5 @@ export function useLichessGames(token) {
     }))
   }
 
-  return { rawGames, username, loading, error, fetchAll, getChartData }
+  return { rawGames, username, loading, error, fetchAll, getChartData, exportPGN }
 }

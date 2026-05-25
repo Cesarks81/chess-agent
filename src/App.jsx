@@ -27,7 +27,7 @@ const TOP_VARIANTS   = ['blitz', 'rapid', 'bullet']
 export default function App() {
   const { token, logout } = useLichessAuth()
   const { data, loading, error, fetchUser } = useLichessUser(token)
-  const { rawGames, username: gamesUser, loading: gamesLoading, error: gamesError, fetchAll, getChartData } =
+  const { rawGames, username: gamesUser, loading: gamesLoading, error: gamesError, fetchAll, getChartData, exportPGN } =
     useLichessGames(token)
 
   const viewingOtherUser = data && data.username?.toLowerCase() !== DEFAULT_USER.toLowerCase()
@@ -139,7 +139,7 @@ export default function App() {
                 )}
 
                 {/* Abajo izquierda: ELO por partida */}
-                <EloChart getChartData={getChartData} loading={gamesLoading} />
+                <EloChart getChartData={getChartData} loading={gamesLoading} onExportPGN={exportPGN} />
               </div>
 
               {/* Columna derecha — 33% */}
