@@ -54,15 +54,15 @@ function EloBar({ perf }) {
 
   return (
     <div className="hidden sm:flex flex-col items-center gap-1.5 flex-shrink-0 select-none pl-2">
-      <span className="text-[10px] text-gray-600 font-mono tabular-nums">{next}</span>
+      <span className="text-[10px] text-white font-mono tabular-nums">{next}</span>
       <div className="relative flex-1 w-2.5 rounded-full bg-gray-800/70 overflow-hidden">
         <div
           className="absolute bottom-0 inset-x-0 rounded-full bg-emerald-500 transition-all duration-700"
           style={{ height: `${pct}%` }}
         />
-        <div className="absolute inset-x-0 bg-gray-950/60" style={{ bottom: '50%', height: '1px' }} />
+        <div className="absolute inset-x-0 bg-white/40" style={{ bottom: '54%', height: '2px' }} />
       </div>
-      <span className="text-[10px] text-gray-600 font-mono tabular-nums">{prev}</span>
+      <span className="text-[10px] text-white font-mono tabular-nums">{prev}</span>
     </div>
   )
 }

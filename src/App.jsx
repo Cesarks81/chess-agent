@@ -123,41 +123,29 @@ export default function App() {
               </div>
             )}
 
-            {/* Layout principal: izquierda 66% | derecha 33% */}
+            {/* Fila superior: rating cards + StreakCard en el mismo grid → misma altura */}
+            {topPerfs.length > 0 && (
+              <div className="grid grid-cols-2 lg:grid-cols-[2fr_2fr_2fr_3fr] gap-3">
+                {topPerfs.map(([v, p]) => (
+                  <RatingCard key={v} variant={v} perf={p} />
+                ))}
+                {insights && <StreakCard streaks={insights.streaks} />}
+              </div>
+            )}
+
+            {/* Fila inferior: EloChart 66% | stats 33% */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-stretch">
-
-              {/* Columna izquierda — 66% */}
-              <div className="lg:col-span-2 flex flex-col gap-4">
-
-                {/* Arriba izquierda: Blitz, Rapid, Bullet */}
-                {topPerfs.length > 0 && (
-                  <div className="grid grid-cols-3 gap-3">
-                    {topPerfs.map(([v, p]) => (
-                      <RatingCard key={v} variant={v} perf={p} />
-                    ))}
-                  </div>
-                )}
-
-                {/* Abajo izquierda: ELO por partida — crece para igualar la columna derecha */}
+              <div className="lg:col-span-2">
                 <EloChart
                   getChartData={getChartData}
                   loading={gamesLoading}
                   onExportPGN={exportPGN}
                   blitzPerf={data?.perfs?.blitz}
-                  className="flex-1"
+                  className="h-full"
                 />
               </div>
-
-              {/* Columna derecha — 33% */}
               <div className="lg:col-span-1 flex flex-col gap-4">
-
-                {/* Arriba derecha: Rachas */}
-                {insights && <StreakCard streaks={insights.streaks} />}
-
-                {/* Medio derecha: Resumen de partidas */}
                 <StatsOverview count={data.count} />
-
-                {/* Abajo derecha: Rendimiento por color */}
                 {insights && <ColorStats stats={insights.color} />}
               </div>
             </div>
